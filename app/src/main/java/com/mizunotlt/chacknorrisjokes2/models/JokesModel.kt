@@ -2,6 +2,7 @@ package com.mizunotlt.chacknorrisjokes2.models
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mizunotlt.chacknorrisjokes2.App
 import com.mizunotlt.chacknorrisjokes2.data.JokesData
 import com.mizunotlt.chacknorrisjokes2.repository.JokesRepository
 import kotlinx.coroutines.*
@@ -15,6 +16,10 @@ class JokesModel @Inject constructor(private val repository: JokesRepository): V
         get() = parentJob + Dispatchers.Default
 
     private val scope = CoroutineScope(coroutineContext)
+
+    init {
+        App.appComponent.inject(jokesModel = this)
+    }
 
     val jokesLiveData = MutableLiveData<ArrayList<JokesData>>().apply { value = arrayListOf() }
 
