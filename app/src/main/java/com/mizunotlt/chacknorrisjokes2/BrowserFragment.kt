@@ -16,7 +16,7 @@ class BrowserFragment : Fragment(){
     }
 
     private lateinit var browserView: WebView
-    lateinit var viewBrowser: View
+    private lateinit var viewBrowser: View
     private var webViewBundle: Bundle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +43,6 @@ class BrowserFragment : Fragment(){
             }
         }
         return viewBrowser
-    }
-
-    fun onBackPressed(){
-        if (browserView.canGoBack())
-            browserView.goBack()
     }
 
     override fun onSaveInstanceState(saveBundle: Bundle) {

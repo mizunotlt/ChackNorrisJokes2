@@ -2,8 +2,6 @@ package com.mizunotlt.chacknorrisjokes2.di.module
 
 import com.mizunotlt.chacknorrisjokes2.data.JokesApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.mizunotlt.chacknorrisjokes2.models.JokesModel
-import com.mizunotlt.chacknorrisjokes2.repository.JokesRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
