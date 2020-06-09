@@ -57,7 +57,6 @@ class BrowserFragment : Fragment(){
 
     override fun onPause() {
         super.onPause()
-        super.onPause()
         webViewBundle = Bundle()
         browserView.saveState(webViewBundle)
     }

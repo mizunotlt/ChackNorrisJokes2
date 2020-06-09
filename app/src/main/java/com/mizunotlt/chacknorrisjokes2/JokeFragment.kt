@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mizunotlt.chacknorrisjokes2.data.JokesData
 import com.mizunotlt.chacknorrisjokes2.models.JokesModel
 import com.mizunotlt.chacknorrisjokes2.utils.Adapter
+import kotlinx.android.synthetic.main.joke_fragment.*
 import java.lang.NumberFormatException
 import javax.inject.Inject
 
@@ -26,13 +27,8 @@ class JokeFragment : Fragment() {
     }
 
     @Inject lateinit var jokesViewModel: JokesModel
-    private lateinit var textEdit: EditText
-    private lateinit var listJokes: RecyclerView
     private lateinit var adapterJokes: Adapter
-    private lateinit var buttonReload: Button
-    private lateinit var viewJokes: View
-
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.appComponent.inject(jokeFragment = this@JokeFragment)
@@ -44,13 +40,16 @@ class JokeFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-        viewJokes = inflater.inflate(R.layout.joke_fragment, container, false)
-        textEdit = viewJokes.findViewById(R.id.countJokes)
-        listJokes = viewJokes.findViewById(R.id.listJokes)
-        buttonReload = viewJokes.findViewById(R.id.buttonReload)
+
+        return inflater.inflate(R.layout.joke_fragment, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+
+        super.onActivityCreated(savedInstanceState)
         buttonReload.setOnClickListener {
             try{
-                jokesViewModel.getJokes(textEdit.text.toString().toInt())
+                jokesViewModel.getJokes(countJokes.text.toString().toInt())
             }
             catch (e: NumberFormatException){
                 Log.e("Error", "Error with input number")
@@ -59,13 +58,6 @@ class JokeFragment : Fragment() {
         listJokes.layoutManager = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
         adapterJokes = Adapter(arrayListOf())
         listJokes.adapter = adapterJokes
-        return viewJokes
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-
-        super.onActivityCreated(savedInstanceState)
-
         jokesViewModel.jokesLiveData.observe(viewLifecycleOwner, Observer<ArrayList<JokesData>> {
             adapterJokes.update(jokesViewModel.jokesLiveData.value!!)
         })

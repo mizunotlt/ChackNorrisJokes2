@@ -1,5 +1,11 @@
 package com.mizunotlt.chacknorrisjokes2.data
 
-data class JokesRequest(val types: String, val value : ArrayList<JokesData>)
+import com.google.gson.annotations.SerializedName
 
-data class  JokesData(val id: Int, val joke: String, val categories: ArrayList<String>)
+data class JokesRequest(
+    @SerializedName("types") val types: String,
+    @SerializedName("value") val value : ArrayList<JokesData>)
+
+data class  JokesData(
+    @SerializedName("id") val id: Int, val joke: String,
+    @SerializedName("categories") val categories: ArrayList<String>)
